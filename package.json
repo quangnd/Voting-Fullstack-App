@@ -1,0 +1,11 @@
+{
+  "name": "voting-fullstack-app",
+  "version": "1.0.0",
+  "description": "A fullstack web application with NodeJS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "quangnd",
+  "license": "ISC"
+}
