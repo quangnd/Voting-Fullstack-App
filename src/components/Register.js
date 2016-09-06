@@ -10,23 +10,25 @@ class Register extends React.Component {
                         <div className='panel panel-default'>
                             <div className='panel-heading'>Create new account</div>
                             <div className='panel-body'>
-                                <form>
-                                    <div className='form-group'>
-                                        <label className='control-label'>Character Name</label>
-                                        <input type='text' className='form-control' ref='nameTextField' value='' autoFocus/>
-                                        <span className='help-block'></span>
-                                    </div>
-                                    <div className='form-group'>
-                                        <div className='radio radio-inline'>
-                                            <input type='radio' name='gender' id='female' value='Female' defaultChecked='true'/>
-                                            <label htmlFor='female'>Female</label>
-                                        </div>
-                                        <div className='radio radio-inline'>
-                                            <input type='radio' name='gender' id='male' value='Male' defaultChecked='false'/>
-                                            <label htmlFor='male'>Male</label>
+                                <form className="form-horizontal">
+                                    <div className="form-group">
+                                        <label htmlFor="inputEmail3" className="col-sm-2 control-label">Enter email</label>
+                                        <div className="col-sm-10">
+                                            <input type="email" className="form-control" id="inputEmail3" placeholder="Email"/>
                                         </div>
                                     </div>
-                                    <button type='submit' className='btn btn-primary'>Submit</button>
+                                    <div className="form-group">
+                                        <label htmlFor="inputPassword3" className="col-sm-2 control-label">Enter password</label>
+                                        <div className="col-sm-10">
+                                            <input type="password" className="form-control" id="inputPassword3" placeholder="Password"/>
+                                        </div>
+                                    </div>
+                            
+                                    <div className="form-group">
+                                        <div className="col-sm-offset-2 col-sm-10">
+                                            <button type="submit" className="btn btn-default">Create</button>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>
