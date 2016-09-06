@@ -10,6 +10,7 @@ export default (
     <Route component={App}>
         <Route name='home' path='/' component={Home}/>
         <Route name='register' path='/register' component={Register}/>
+        <Route path='/register/:id' component={Register} />
         <Route name='signin' path='/signin' component={SignIn}/>
         <Route name='userList' path='/users' component={UserListPage}/>
     </Route>

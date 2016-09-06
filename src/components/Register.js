@@ -17,6 +17,16 @@ class Register extends React.Component {
 
     }
 
+    componentWillMount() {
+        let userId = this.props.location.query.id;
+        //console.log(this.props);
+        if (userId) {
+            this.setState({
+                user: UserApi.getUserById(userId)
+            });
+        }
+    }
+
     setUserState(event) {
         var field = event.target.name;
         var value = event.target.value;

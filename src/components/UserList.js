@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 class UserList extends React.Component {
     render() {
         let createUserRow = (user) => <tr key={user.id}>
-            <td>{user.id}</td>
+            <td>
+                <Link to={{ pathname: '/register', query: { id: user.id } }}>{user.id}</Link>
+            </td>
             <td>{user.username}</td>
             <td>{user.password}</td>
         </tr>

@@ -4,8 +4,9 @@ export default class TextInput extends React.Component {
     
     render() {
         var wrapperClass = 'form-group';
+        const hasError = ' has-error';
         if (this.props.error && this.props.error.length > 0) {
-            wrapperClass = wrapperClass +  ' has-error';
+            wrapperClass += hasError;
         }
 
         return (
