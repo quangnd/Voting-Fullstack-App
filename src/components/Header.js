@@ -19,6 +19,9 @@ class Header extends React.Component {
                         <div id="navbar" className="navbar-collapse collapse">
                             <ul className="nav navbar-nav navbar-right hamburger-dropdown">
                                 <li className="hidden-xs">
+                                    <Link to="/users">User List</Link>
+                                </li>
+                                <li className="hidden-xs">
                                     <Link to="/signin">Sign in</Link>
                                 </li>
                                 <li className="hidden-xs">
