@@ -36,7 +36,7 @@ class Register extends React.Component {
         });
     }
 
-    authorFormIsValid() {
+    userFormIsValid() {
 		var formIsValid = true;
 		this.state.errors = {}; //clear any previous errors.
 
@@ -56,7 +56,7 @@ class Register extends React.Component {
     saveUser(event) {
         event.preventDefault();
 
-        if (!this.authorFormIsValid()) {
+        if (!this.userFormIsValid()) {
             return;
         }
 

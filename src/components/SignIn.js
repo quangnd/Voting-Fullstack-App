@@ -1,39 +1,71 @@
 import React from 'react';
-
+import SignInForm from './SignInForm';
+import UserApi from '../api/userApi';
+import toastr from 'toastr';
 class SignIn extends React.Component {
+    constructor() {
+        super();
+
+        this.state = {
+            user: {id:'', username:'', password:''},
+            errors: []
+        }
+        this.setUserState = this.setUserState.bind(this);
+        this.login = this.login.bind(this);
+    }
+
+    setUserState(event) {
+        var field = event.target.name;
+        var value = event.target.value;
+        this.state.user[field] = value;
+        this.setState({
+            user: this.state.user
+        });
+    }
+
+     userFormIsValid() {
+		var formIsValid = true;
+		this.state.errors = {}; //clear any previous errors.
+
+		if (this.state.user.username.length < 3) {
+			this.state.errors.username = 'Username must be at least 3 characters.';
+			formIsValid = false;
+		}
+
+		if (this.state.user.password.length < 3) {
+			this.state.errors.password = 'Password must be at least 3 characters.';
+			formIsValid = false;
+		}
+
+		this.setState({errors: this.state.errors});
+		return formIsValid;
+	}
+
+    login(event) {
+        event.preventDefault();
+
+        if (!this.userFormIsValid()) {
+            return;
+        }
+
+        var userExisting = UserApi.validateUser(this.state.user);
+        if (userExisting) {
+            toastr.success('Login successfully!!!');
+        }
+        else {
+            toastr.success('Login failed!!!');
+        }
+
+    }
+
     render() {
         return (
-            <div className="container registerForm">
-                <div className="row">
-                    <div className="col-sm-8">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">Sign in</div>
-                            <div className="panel-body">
-                                <form className="form-horizontal">
-                                    <div className="form-group">
-                                        <label htmlFor="inputEmail3" className="col-sm-2 control-label">Email</label>
-                                        <div className="col-sm-10">
-                                            <input type="email" className="form-control" id="inputEmail3" placeholder="Email"/>
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="inputPassword3" className="col-sm-2 control-label">Password</label>
-                                        <div className="col-sm-10">
-                                            <input type="password" className="form-control" id="inputPassword3" placeholder="Password"/>
-                                        </div>
-                                    </div>
-                            
-                                    <div className="form-group">
-                                        <div className="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" className="btn btn-default">Sign in</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <SignInForm 
+                user={this.state.user}
+                onChange={this.setUserState}
+                onLogin={this.login} 
+                errors={this.state.errors}
+            />
         );
     }
 }

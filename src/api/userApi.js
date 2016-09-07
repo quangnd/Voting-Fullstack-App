@@ -23,6 +23,18 @@ var UserApi = {
 		return _clone(user);
 	},
 	
+	validateUser: function(user) {
+		console.log(user.username);
+		
+		var existingUserIndex = _.indexOf(users, _.find(users, {username: user.username, password: user.password}));
+		console.log(existingUserIndex);
+		if (existingUserIndex !== -1) {
+			return true;
+		}
+
+		return false;
+	},
+
 	saveUser: function(user) {
 		//pretend an ajax call to web api is made here
 		console.log('Pretend this just saved the user to the DB via AJAX call...');
