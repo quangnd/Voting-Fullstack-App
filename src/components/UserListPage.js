@@ -14,21 +14,30 @@ class UserListPage extends React.Component {
     }
 
     componentDidMount() {
-
         this.setState({
             users: UserApi.getAllUsers()
         })
-
     }
 
     render() {
-        return (
-            <div className="container registerForm">
-                <h2>User list</h2>
-                <br/>        
-                <UserList users={this.state.users}/>
-            </div>
-        )
+        if (!this.props.loggedIn) {
+            return (
+
+                <div className="container registerForm">
+                    You must login to continue...
+                </div>
+
+            )
+        }
+        else {
+            return (
+                <div className="container registerForm">
+                    <h2>User list</h2>
+                    <br/>
+                    <UserList users={this.state.users}/>
+                </div>
+            )
+        }
     }
 }
 

@@ -8,53 +8,65 @@ class SignIn extends React.Component {
 
         this.state = {
             user: {id:'', username:'', password:''},
-            errors: []
+            errors: [],
         }
         this.setUserState = this.setUserState.bind(this);
         this.login = this.login.bind(this);
     }
 
     setUserState(event) {
+        var newState = this.state.user;
         var field = event.target.name;
         var value = event.target.value;
-        this.state.user[field] = value;
+        newState[field] = value;
         this.setState({
-            user: this.state.user
+            user: newState
         });
     }
 
+    
+
      userFormIsValid() {
 		var formIsValid = true;
-		this.state.errors = {}; //clear any previous errors.
+		var newErrorState =  this.state.errors;
+        newErrorState = {}; //clear any previous errors.
+
 
 		if (this.state.user.username.length < 3) {
-			this.state.errors.username = 'Username must be at least 3 characters.';
+			newErrorState.username = 'Username must be at least 3 characters.';
 			formIsValid = false;
 		}
 
 		if (this.state.user.password.length < 3) {
-			this.state.errors.password = 'Password must be at least 3 characters.';
+			newErrorState.password = 'Password must be at least 3 characters.';
 			formIsValid = false;
 		}
 
-		this.setState({errors: this.state.errors});
+		this.setState({errors: newErrorState});
 		return formIsValid;
 	}
 
     login(event) {
         event.preventDefault();
 
+        let authenticated = false;
         if (!this.userFormIsValid()) {
             return;
         }
 
         var userExisting = UserApi.validateUser(this.state.user);
         if (userExisting) {
+            authenticated = true;
             toastr.success('Login successfully!!!');
+            const path = '/users';
+            this.context.router.push(path)
         }
         else {
             toastr.success('Login failed!!!');
         }
+
+        //callback to parent component
+        this.props.onAuthenticate(authenticated);
 
     }
 
@@ -69,5 +81,9 @@ class SignIn extends React.Component {
         );
     }
 }
+
+ SignIn.contextTypes = {
+    router: React.PropTypes.object
+  };
 
 export default SignIn;

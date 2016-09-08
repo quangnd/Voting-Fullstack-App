@@ -28,29 +28,32 @@ class Register extends React.Component {
     }
 
     setUserState(event) {
+        var newState = this.state.user;
         var field = event.target.name;
         var value = event.target.value;
-        this.state.user[field] = value;
+        newState[field] = value;
         this.setState({
-            user: this.state.user
+            user: newState
         });
     }
 
     userFormIsValid() {
 		var formIsValid = true;
-		this.state.errors = {}; //clear any previous errors.
+		var newErrorState =  this.state.errors; //clear any previous errors.
 
+        newErrorState = {};
 		if (this.state.user.username.length < 3) {
-			this.state.errors.username = 'Username must be at least 3 characters.';
+			newErrorState.username = 'Username must be at least 3 characters.';
 			formIsValid = false;
 		}
 
 		if (this.state.user.password.length < 3) {
-			this.state.errors.password = 'Password must be at least 3 characters.';
+			newErrorState.password = 'Password must be at least 3 characters.';
 			formIsValid = false;
 		}
 
-		this.setState({errors: this.state.errors});
+        console.log(this.state.errors);
+		this.setState({errors: newErrorState});
 		return formIsValid;
 	}
     saveUser(event) {

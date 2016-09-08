@@ -2,7 +2,28 @@ import React from 'react';
 import {Link} from 'react-router';
 
 class Header extends React.Component {
+     constructor() {
+        super();
+
+        this.logout = this.logout.bind(this);
+    }
+
+     
+    logout() {
+        this.props.onAuthenticate(false);
+    }
+
     render() {
+        let loggedIn = this.props.loggedIn;
+        let linkSignIn =  <Link to="/signin">Sign in</Link>;
+        let linkUserList = '';
+        let linkRegister = <Link to="/register">Register</Link>;;
+        if (loggedIn) {
+            linkSignIn = <Link to="/" onClick={this.logout}>Logout</Link>;
+            linkUserList = <Link to="/users">User List</Link>;
+            linkRegister = '';
+        }
+
         return(
             <div>
                 <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -19,13 +40,13 @@ class Header extends React.Component {
                         <div id="navbar" className="navbar-collapse collapse">
                             <ul className="nav navbar-nav navbar-right hamburger-dropdown">
                                 <li className="hidden-xs">
-                                    <Link to="/users">User List</Link>
+                                    {linkUserList}
                                 </li>
                                 <li className="hidden-xs">
-                                    <Link to="/signin">Sign in</Link>
+                                    {linkSignIn}
                                 </li>
                                 <li className="hidden-xs">
-                                    <Link to="/register">Register</Link>
+                                    {linkRegister}
                                 </li>
                             </ul>
                         </div>
