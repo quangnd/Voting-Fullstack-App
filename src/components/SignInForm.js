@@ -24,7 +24,7 @@ export default class SignInForm extends React.Component {
 
                                     <div className="form-group">
                                         <div className="col-sm-offset-2 col-sm-10">
-                                            <input type="submit" value="Login" className="btn btn-default" 
+                                            <input type="submit" value="Login" className="btn btn-primary" 
                                             onClick={this.props.onLogin} />
                                         </div>
                                     </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import SignInForm from './SignInForm';
 import UserApi from '../api/userApi';
 import toastr from 'toastr';
+
 class SignIn extends React.Component {
     constructor() {
         super();
@@ -12,6 +13,11 @@ class SignIn extends React.Component {
         }
         this.setUserState = this.setUserState.bind(this);
         this.login = this.login.bind(this);
+        
+        toastr.options = {
+                'closeButton': true,
+                'positionClass': 'toast-bottom-right',
+        };
     }
 
     setUserState(event) {
@@ -23,8 +29,6 @@ class SignIn extends React.Component {
             user: newState
         });
     }
-
-    
 
      userFormIsValid() {
 		var formIsValid = true;
@@ -57,12 +61,14 @@ class SignIn extends React.Component {
         var userExisting = UserApi.validateUser(this.state.user);
         if (userExisting) {
             authenticated = true;
+           
             toastr.success('Login successfully!!!');
-            const path = '/users';
+          
+            const path = '/polls';
             this.context.router.push(path)
         }
         else {
-            toastr.success('Login failed!!!');
+            toastr.error('Login failed!!!');
         }
 
         //callback to parent component

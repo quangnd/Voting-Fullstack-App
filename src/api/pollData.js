@@ -51,24 +51,32 @@ module.exports = {
         },
         {
             id: 3,
-            name: 'Which code editor are you using?',
+            name: 'What is your first programming language?',
             options: 
             [
                 {
-                    option: 'Atom',
+                    option: 'C# lang',
                     votes: 20
                 },
                 {
-                    option: 'Visual Studio Code',
+                    option: 'C lang',
                     votes: 15
                 },
                 {
-                    option: 'Brackets',
+                    option: 'Java lang',
                     votes: 4
                 },
                 {
-                    option: 'Sublime Text',
+                    option: 'Python lang',
                     votes: 11
+                },
+                {
+                    option: 'Ruby lang',
+                    votes: 3
+                },
+                {
+                    option: 'Javascript lang',
+                    votes: 22
                 }
             ],
             createdBy: 'hanght'

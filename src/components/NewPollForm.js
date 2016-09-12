@@ -1,25 +1,26 @@
 import React from 'react';
 import TextInput from '../common/textInput';
+import TextArea from '../common/textArea';
 
-export default class RegisterForm extends React.Component {
+export default class NewPollForm extends React.Component {
     render() {
         return (
             <div className='container registerForm'>
                 <div className='row'>
                     <div className='col-sm-8'>
-                        <div className='panel panel-default'>
-                            <div className='panel-heading'>Create new account</div>
+                        <div className='panel panel-info'>
+                            <div className='panel-heading'>Create new poll</div>
                             <div className='panel-body'>
                                 <form className="form-horizontal">
-                                    <TextInput type="text"  name="username" placeholder="Username" label="Username"
-                                        value={this.props.user.username}
+                                    <TextInput type="text" name="pollName" placeholder="Name" label="Enter name"
+                                        value={this.props.poll.name}
                                         onChange={this.props.onChange}
-                                        error={this.props.errors.username}/>
+                                        error={this.props.errors.pollName}/>
 
-                                    <TextInput type="password" name="password" placeholder="Password" label="Password"
-                                        value={this.props.user.password}
+                                    <TextArea rows="5" name="pollOptions" placeholder="Options seperated by line" label="Enter Options"
+                                        value={this.props.poll.options}
                                         onChange={this.props.onChange}
-                                        error={this.props.errors.password}/>
+                                        error={this.props.errors.pollOptions}/>
 
 
                                     <div className="form-group">

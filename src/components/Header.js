@@ -17,11 +17,15 @@ class Header extends React.Component {
         let loggedIn = this.props.loggedIn;
         let linkSignIn =  <Link to="/signin">Sign in</Link>;
         let linkUserList = '';
-        let linkRegister = <Link to="/register">Register</Link>;;
+        let linkRegister = <Link to="/register">Register</Link>;
+        let linkNewPoll = '';
+        let linkMyPolls = '';
         if (loggedIn) {
             linkSignIn = <Link to="/" onClick={this.logout}>Logout</Link>;
             linkUserList = <Link to="/users">User List</Link>;
             linkRegister = '';
+            linkNewPoll = <Link to="/newpoll">New poll</Link>;
+            linkMyPolls = <Link to="/mypolls">My polls</Link>
         }
 
         return(
@@ -35,12 +39,23 @@ class Header extends React.Component {
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                             </button>
-                            <Link to="/" className="navbar-brand">Project name</Link>
+                            <Link to="/" className="navbar-brand">Mun's voting app</Link>
                         </div>
                         <div id="navbar" className="navbar-collapse collapse">
                             <ul className="nav navbar-nav navbar-right hamburger-dropdown">
+                                {/*
                                 <li className="hidden-xs">
                                     {linkUserList}
+                                </li>
+                                */}
+                                <li className="hidden-xs">
+                                    <Link to="/polls">Poll list</Link>
+                                </li>
+                                <li className="hidden-xs">
+                                    {linkNewPoll}
+                                </li>
+                                    <li className="hidden-xs">
+                                    {linkMyPolls}
                                 </li>
                                 <li className="hidden-xs">
                                     {linkSignIn}
