@@ -2,19 +2,19 @@ module.exports =  {
 	users: 
 	[
 		{
-			id: 'cory-house', 
-			username: 'Cory', 
-			password: 'House'
+			id: 'quangnd-quangnd', 
+			username: 'quangnd', 
+			password: 'quangnd'
 		},	
 		{
-			id: 'scott-allen', 
-			username: 'Scott', 
-			password: 'Allen'
+			id: 'hanght-hanght', 
+			username: 'hanght', 
+			password: 'hanght'
 		},	
 		{
-			id: 'dan-wahlin', 
-			username: 'Dan', 
-			password: 'Wahlin'
+			id: 'dietnv-dietnv', 
+			username: 'dietnv', 
+			password: 'dietnv'
 		}
 	]
 };
