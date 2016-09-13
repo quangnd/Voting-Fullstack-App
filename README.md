@@ -27,3 +27,11 @@ A fullstack web app with NodeJS and its ecosystem
 7. As an unauthenticated or authenticated user, I can see the results of polls in chart form. (This could be implemented using Chart.js or Google Charts.)
 
 8. As an authenticated user, if I don't like the options on a poll, I can create a new option.
+
+##Note about ReactJS
++ React-Router with param need original link before (if not, eror did not match any route)
+    + For example: `<Route path='/details/:id' component={PollViewPage}/>`
+    + Need `<Route path='/details' component={PollViewPage}/>`
++ If id is int type, need parseInt after get from query string.
++ To change Component state on the same page, need look into componentWillReceiveProps() life cycle.
++ 

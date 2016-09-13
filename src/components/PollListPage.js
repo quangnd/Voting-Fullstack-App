@@ -32,9 +32,7 @@ class PollListPage extends React.Component {
 
     //Run when receive new props
     componentWillReceiveProps(nextProps) {
- 
-             this.setState(this.getStateFromStores(nextProps));
-        
+        this.setState(this.getStateFromStores(nextProps));
     }
 
     render() {

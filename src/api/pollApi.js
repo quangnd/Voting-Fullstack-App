@@ -2,42 +2,63 @@
 var polls = require('./pollData').polls;
 var _ = require('lodash');
 
-var _generateId = function(poll) {
+var _generateId = function (poll) {
     if (poll.createdBy)
-	    return poll.name.toLowerCase() + '-' + poll.createdBy.toLowerCase();
+		return poll.name.toLowerCase() + '-' + poll.createdBy.toLowerCase();
 
-    return poll.name.toLowerCase() ;
+    return poll.name.toLowerCase();
 };
 
-var _clone = function(item) {
+var _clone = function (item) {
 	return JSON.parse(JSON.stringify(item)); //return cloned copy so that the item is passed by value instead of by reference
 };
 
 var PollApi = {
-    generateId: function(poll) {
+    generateId: function (poll) {
         return _generateId(poll);
     },
 
-    getAllPolls: function() {
+    getAllPolls: function () {
         return _clone(polls);
     },
 
-    getPollById: function(id) {
-		var poll = _.find(polls, {id: id});
+    getPollById: function (id) {
+		var poll = _.find(polls, { id: id });
 		return _clone(poll);
 	},
-	
-	getAllPollsByUsername: function(username){ 
-        return _.filter(polls, { createdBy: username});
-      
+
+	getVotesByPollIdAndOption: function (id, option) {
+		var options = _.find(polls, { id: id });
+		let currentOption = _.find(options, { option: option });
+		return _clone(currentOption);
+	},
+
+	getAllPollsByUsername: function (username) {
+        return _.filter(polls, { createdBy: username });
+
     },
 
-	savePoll: function(poll) {
+	updateVoteByPollIdAndOption: function (id, option) {
+		var poll = _.find(polls, { id: id });
+
+		var currentOption = _.find(poll.options, { option: option });
+		var newNumberOfVote = currentOption.votes + 1;
+		var newOption = {
+			option: option,
+			votes: newNumberOfVote
+		};
+		var existingOptionIndex = _.indexOf(poll.options, _.find(poll.options, { option: option  }));
+		poll.options.splice(existingOptionIndex, 1, newOption);
+
+		return poll;
+	},
+
+	savePoll: function (poll) {
 		//pretend an ajax call to web api is made here
 		console.log('Pretend this just saved the user to the DB via AJAX call...');
-		
-		if (poll.id) {			
-            var existingPollIndex = _.indexOf(polls, _.find(polls, {id: poll.id}));
+
+		if (poll.id) {
+            var existingPollIndex = _.indexOf(polls, _.find(polls, { id: poll.id }));
             polls.splice(existingPollIndex, 1, poll);
 		} else {
 			//Just simulating creation here.
@@ -50,9 +71,9 @@ var PollApi = {
 		return poll;
 	},
 
-	deletePoll: function(id) {
+	deletePoll: function (id) {
 		console.log('Pretend this just deleted the user from the DB via an AJAX call...');
-		_.remove(polls, { id: id});
+		_.remove(polls, { id: id });
 	}
 }
 

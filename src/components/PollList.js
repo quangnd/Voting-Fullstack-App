@@ -5,8 +5,7 @@ class PollList extends React.Component {
     render() {
      
         let pollLink = this.props.polls.map( poll => {
-            return <Link key={poll.id} to="/" className="list-group-item">
-                        
+            return <Link key={poll.id} to={{ pathname: '/details', query: { id: poll.id } }} className="list-group-item">
                         <span className="badge">Options: {poll.options.length}</span>
                          {poll.name}
                     </Link>
