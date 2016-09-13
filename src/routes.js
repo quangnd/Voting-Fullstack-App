@@ -16,6 +16,7 @@ export default (
         <Route name='signin' path='/signin' component={SignIn}/>
         <Route name='userList' path='/users' component={UserListPage}/>
         <Route path='/polls' component={PollListPage}/>
+        <Route path='/polls/:username' component={PollListPage}/>
         <Route path='/newpoll' component={NewPoll}/>
     </Route>
 )

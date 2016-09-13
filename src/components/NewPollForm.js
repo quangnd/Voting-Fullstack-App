@@ -12,12 +12,12 @@ export default class NewPollForm extends React.Component {
                             <div className='panel-heading'>Create new poll</div>
                             <div className='panel-body'>
                                 <form className="form-horizontal">
-                                    <TextInput type="text" name="pollName" placeholder="Name" label="Enter name"
+                                    <TextInput type="text" name="name" placeholder="Name" label="Enter name"
                                         value={this.props.poll.name}
                                         onChange={this.props.onChange}
-                                        error={this.props.errors.pollName}/>
+                                        error={this.props.errors.pollName} />
 
-                                    <TextArea rows="5" name="pollOptions" placeholder="Options seperated by line" label="Enter Options"
+                                    <TextArea rows="5" name="options" placeholder="Options seperated by line" label="Enter Options"
                                         value={this.props.poll.options}
                                         onChange={this.props.onChange}
                                         error={this.props.errors.pollOptions}/>

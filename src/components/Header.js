@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+import Globals from '../common/globals';
 
 class Header extends React.Component {
      constructor() {
@@ -10,6 +11,7 @@ class Header extends React.Component {
 
      
     logout() {
+        Globals.setUsername('');
         this.props.onAuthenticate(false);
     }
 
@@ -20,12 +22,15 @@ class Header extends React.Component {
         let linkRegister = <Link to="/register">Register</Link>;
         let linkNewPoll = '';
         let linkMyPolls = '';
+        let username = '';
         if (loggedIn) {
+            let currentUsername = Globals.getUsername();
             linkSignIn = <Link to="/" onClick={this.logout}>Logout</Link>;
             linkUserList = <Link to="/users">User List</Link>;
             linkRegister = '';
             linkNewPoll = <Link to="/newpoll">New poll</Link>;
-            linkMyPolls = <Link to="/mypolls">My polls</Link>
+            linkMyPolls = <Link to={{ pathname: '/polls', query: { username: currentUsername } }}>My polls</Link>;
+            username = <a href='#'> Hi, {currentUsername}</a>;
         }
 
         return(
@@ -48,6 +53,9 @@ class Header extends React.Component {
                                     {linkUserList}
                                 </li>
                                 */}
+                                <li className="hidden-xs"> 
+                                    {username}
+                                </li>
                                 <li className="hidden-xs">
                                     <Link to="/polls">Poll list</Link>
                                 </li>
@@ -60,7 +68,8 @@ class Header extends React.Component {
                                 <li className="hidden-xs">
                                     {linkSignIn}
                                 </li>
-                                <li className="hidden-xs">
+                             
+                                <li className="hidden-xs"> 
                                     {linkRegister}
                                 </li>
                             </ul>

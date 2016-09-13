@@ -1,6 +1,7 @@
 import React from 'react';
 import SignInForm from './SignInForm';
 import UserApi from '../api/userApi';
+import Globals from '../common/globals';
 import toastr from 'toastr';
 
 class SignIn extends React.Component {
@@ -61,9 +62,10 @@ class SignIn extends React.Component {
         var userExisting = UserApi.validateUser(this.state.user);
         if (userExisting) {
             authenticated = true;
-           
+            Globals.setUsername(this.state.user.username);
+
             toastr.success('Login successfully!!!');
-          
+            
             const path = '/polls';
             this.context.router.push(path)
         }

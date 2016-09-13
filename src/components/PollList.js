@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 class PollList extends React.Component {
     render() {
-
+     
         let pollLink = this.props.polls.map( poll => {
             return <Link key={poll.id} to="/" className="list-group-item">
                         
