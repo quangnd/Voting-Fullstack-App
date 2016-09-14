@@ -10,7 +10,9 @@ class NewPoll extends React.Component {
 
         this.state = {
             poll: { id: '', name: '', options: '' },
-            errors: []
+            errors: [],
+            isEdit: false,
+            originalOptions: []
         }
 
         this.setPollState = this.setPollState.bind(this);
@@ -22,12 +24,34 @@ class NewPoll extends React.Component {
         };
     }
 
+    componentWillMount() {
+        let pollId = this.props.location.query.id;
+
+        if (pollId) {
+            let editingPoll = PollApi.getPollById(parseInt(pollId, 10));
+            let originalOptions = editingPoll.options;
+            let optionList = '';
+            editingPoll.options.forEach(function (option) {
+                optionList += option.option + '\n';
+            });
+
+            editingPoll.options = optionList;
+
+            this.setState({
+                poll: editingPoll,
+                isEdit: true,
+                originalOptions
+            });
+        }
+    }
+
     setPollState(event) {
         let newState = this.state.poll;
         let field = event.target.name;
         let value = event.target.value;
         newState[field] = value;
 
+        console.log(newState);
         this.setState({
             poll: newState
         })
@@ -48,7 +72,7 @@ class NewPoll extends React.Component {
             formIsValid = false;
         }
 
-        console.log(this.state.errors);
+        //console.log(this.state.errors);
         this.setState({ errors: newErrorState });
         return formIsValid;
     }
@@ -61,25 +85,57 @@ class NewPoll extends React.Component {
         }
 
         let getOptions = this.state.poll['options'].split('\n');
-     
-        if (getOptions[getOptions.length-1] === '' )
+
+        if (getOptions[getOptions.length - 1] === '')
             getOptions.pop();
-        
+
         let newPollOptions = getOptions.toString().split(',');
-        let options = [];
-        newPollOptions.forEach((item) => options.push({option: item, votes: 0}));
-      
-        let newPoll = {
-            name: this.state.poll.name,
-            options: options,
-            createdBy: Globals.getUsername()
+        let newPoll = {};
+        let path = '';
+        if (!this.state.isEdit) {
+            let options = [];
+            newPollOptions.forEach((item) => options.push({ option: item, votes: 0 }));
+
+            newPoll = {
+                name: this.state.poll.name,
+                options: options,
+                createdBy: Globals.getUsername()
+            }
+
+            //console.log("name new state: " + JSON.stringify(newPoll));
+            PollApi.savePoll(newPoll);
+            toastr.success('Poll Saved!');
+
+            //redirect using react-router context
+            path = '/polls';
+        }
+        else {
+            let originalArr = [];
+            this.state.originalOptions.forEach(function (option) {
+                originalArr += option.option + ',';
+            })
+          
+            //get added elements
+            newPollOptions = newPollOptions.filter(function (option) {
+                return originalArr.indexOf(option) < 0
+            });
+
+            let addedOptions = this.state.originalOptions;
+            newPollOptions.forEach((item) => addedOptions.push({ option: item, votes: 0 }));
+
+            newPoll = {
+                id: this.state.poll.id,
+                name: this.state.poll.name,
+                options: addedOptions,
+                createdBy: Globals.getUsername()
+            }
+
+            path = '/polls?username=' + Globals.getUsername();
         }
 
         PollApi.savePoll(newPoll);
         toastr.success('Poll Saved!');
-        
-        //redirect using react-router context
-        const path = '/polls';
+
         this.context.router.push(path)
     }
 
@@ -90,7 +146,6 @@ class NewPoll extends React.Component {
                 <div className="container registerForm">
                     You must login to continue...
                 </div>
-
             )
         }
         else {
@@ -105,8 +160,8 @@ class NewPoll extends React.Component {
     }
 }
 
- NewPoll.contextTypes = {
+NewPoll.contextTypes = {
     router: React.PropTypes.object
-  };
+};
 
 export default NewPoll;

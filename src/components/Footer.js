@@ -7,7 +7,7 @@ class Footer extends React.Component {
                 <hr/>
 
                 <footer>
-                    <p>&copy; 2016 By Mun.</p>
+                    <p>&copy; 2016 by Mun. Created for learning React ecosystem.</p>
                 </footer>
             </div>
         )

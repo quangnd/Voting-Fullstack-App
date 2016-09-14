@@ -16,20 +16,20 @@ class Header extends React.Component {
     }
 
     render() {
-        let loggedIn = this.props.loggedIn;
-        let linkSignIn =  <Link to="/signin">Sign in</Link>;
+        let loggedIn = this.props.loggedIn; 
+        let linkSignIn =  <Link to="/signin"><span className="glyphicon glyphicon-home" aria-hidden="true"></span> &nbsp; Sign in</Link>;
         //let linkUserList = '';
-        let linkRegister = <Link to="/register">Register</Link>;
+        let linkRegister = <Link to="/register"><span className="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp; Register</Link>;
         let linkNewPoll = '';
         let linkMyPolls = '';
         let username = '';
         if (loggedIn) {
             let currentUsername = Globals.getUsername();
-            linkSignIn = <Link to="/" onClick={this.logout}>Logout</Link>;
+            linkSignIn = <Link to="/" onClick={this.logout}> <span className="glyphicon glyphicon-off" aria-hidden="true"></span> &nbsp; Logout</Link>;
            // linkUserList = <Link to="/users">User List</Link>;
             linkRegister = '';
-            linkNewPoll = <Link to="/poll/new">New poll</Link>;
-            linkMyPolls = <Link to={{ pathname: '/polls', query: { username: currentUsername } }}>My polls</Link>;
+            linkNewPoll = <Link to="/poll/new"><span className="glyphicon glyphicon-fire" aria-hidden="true"></span> &nbsp; New poll</Link>;
+            linkMyPolls = <Link to={{ pathname: '/polls', query: { username: currentUsername } }}> <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span> &nbsp; My polls</Link>;
             username = <a href='#'> Hi, {currentUsername}</a>;
         }
 
@@ -44,7 +44,7 @@ class Header extends React.Component {
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                             </button>
-                            <Link to="/" className="navbar-brand">Mun's voting app</Link>
+                            <Link to="/" className="navbar-brand"><span className="glyphicon glyphicon-apple" aria-hidden="true"></span> &nbsp; Mun's voting app</Link>
                         </div>
                         <div id="navbar" className="navbar-collapse collapse">
                             <ul className="nav navbar-nav navbar-right hamburger-dropdown">
@@ -57,7 +57,11 @@ class Header extends React.Component {
                                     {username}
                                 </li>
                                 <li className="hidden-xs">
-                                    <Link to="/polls">Poll list</Link>
+                                   
+                                    <Link to="/polls">
+                                         <span className="glyphicon glyphicon-list" aria-hidden="true"></span> &nbsp; 
+                                            Poll list
+                                    </Link>
                                 </li>
                                 <li className="hidden-xs">
                                     {linkNewPoll}

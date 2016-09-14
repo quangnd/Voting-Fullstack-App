@@ -3,10 +3,14 @@ var polls = require('./pollData').polls;
 var _ = require('lodash');
 
 var _generateId = function (poll) {
-    if (poll.createdBy)
-		return poll.name.toLowerCase() + '-' + poll.createdBy.toLowerCase();
+	let maxid = 0;
+	polls.map(poll => {     
+		if (poll.id > maxid) {
+			maxid = poll.id;    
+		}
+	});
 
-    return poll.name.toLowerCase();
+    return maxid + 1;
 };
 
 var _clone = function (item) {

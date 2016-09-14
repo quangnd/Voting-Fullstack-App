@@ -34,8 +34,6 @@ class PollView extends React.Component {
 
             },
         }
-
-        this.deletePoll = this.deletePoll.bind(this);
     }
 
     getStateFromStores(props) {
@@ -82,11 +80,6 @@ class PollView extends React.Component {
         this.setState(this.getStateFromStores(nextProps));
     }
 
-    deletePoll(event) {
-        event.preventDefault();
-
-        console.log('deletePoll');
-    }
     render() {
         var options = this.props.poll.options;
         let radioList = options.map((option) => {
