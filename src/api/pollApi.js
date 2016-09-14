@@ -49,7 +49,7 @@ var PollApi = {
 		};
 		var existingOptionIndex = _.indexOf(poll.options, _.find(poll.options, { option: option  }));
 		poll.options.splice(existingOptionIndex, 1, newOption);
-
+		poll.pollOptions = option; //add a properties to hold selected poll option
 		return poll;
 	},
 

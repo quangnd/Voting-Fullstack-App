@@ -1,5 +1,4 @@
 import React from 'react';
-import Globals from '../common/globals';
 import PollApi from '../api/pollApi';
 import PollList from './PollList';
 

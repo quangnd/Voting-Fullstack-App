@@ -1,7 +1,6 @@
 import React from 'react';
 import PollView from './PollView';
 import PollApi from '../api/pollApi';
-import Globals from '../common/globals';
 import toastr from 'toastr';
 
 class PollViewPage extends React.Component {
@@ -15,6 +14,8 @@ class PollViewPage extends React.Component {
 
         this.setStateChange = this.setStateChange.bind(this);
         this.handleVote = this.handleVote.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
 
         toastr.options = {
             'closeButton': true,
@@ -27,7 +28,7 @@ class PollViewPage extends React.Component {
 
         if (pollId) {
             this.setState({
-                poll: PollApi.getPollById(parseInt(pollId))
+                poll: PollApi.getPollById(parseInt(pollId, 10))
             });
         }
     }
@@ -48,11 +49,27 @@ class PollViewPage extends React.Component {
 
         let votedOption = this.state.poll.pollOptions;
         let updatedPoll = PollApi.updateVoteByPollIdAndOption(this.state.poll.id, votedOption);
-        //console.log(updatedPoll);
-         this.setState({
+        //console.log("Updated poll hien tai la:" + JSON.stringify(updatedPoll));
+        this.setState({
             poll: updatedPoll
         });
         toastr.success(`You voted for ${votedOption}!`);
+    }
+
+    handleDelete(event) {
+        
+        PollApi.deletePoll(this.state.poll.id);
+        toastr.success('Poll was deleted!!!');
+
+        const path = '/polls';
+        this.context.router.push(path)
+    }
+
+    handleEdit(event) {
+        event.preventDefault();
+
+        const path = '/poll/edit?id=' + this.state.poll.id;
+        this.context.router.push(path)
     }
 
     render() {
@@ -64,7 +81,12 @@ class PollViewPage extends React.Component {
                     <div className="panel-body">
                         <PollView poll={this.state.poll}
                             onChange={this.setStateChange}
-                            onVote={this.handleVote}/>
+                            onVote={this.handleVote}
+                            onEdit={this.handleEdit}
+                            onDelete={this.handleDelete}
+                            loggedIn={this.props.loggedIn}/>
+
+
                     </div>
                 </div>
             </div>

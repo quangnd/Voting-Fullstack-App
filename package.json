@@ -11,6 +11,7 @@
     "lodash": "^4.15.0",
     "react": "^15.3.1",
     "react-chartjs-2": "^1.2.4",
+    "react-confirm-bootstrap": "^3.1.2",
     "react-dom": "^15.3.1",
     "react-router": "^2.7.0",
     "toastr": "^2.1.2"

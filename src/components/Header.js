@@ -18,7 +18,7 @@ class Header extends React.Component {
     render() {
         let loggedIn = this.props.loggedIn;
         let linkSignIn =  <Link to="/signin">Sign in</Link>;
-        let linkUserList = '';
+        //let linkUserList = '';
         let linkRegister = <Link to="/register">Register</Link>;
         let linkNewPoll = '';
         let linkMyPolls = '';
@@ -26,9 +26,9 @@ class Header extends React.Component {
         if (loggedIn) {
             let currentUsername = Globals.getUsername();
             linkSignIn = <Link to="/" onClick={this.logout}>Logout</Link>;
-            linkUserList = <Link to="/users">User List</Link>;
+           // linkUserList = <Link to="/users">User List</Link>;
             linkRegister = '';
-            linkNewPoll = <Link to="/newpoll">New poll</Link>;
+            linkNewPoll = <Link to="/poll/new">New poll</Link>;
             linkMyPolls = <Link to={{ pathname: '/polls', query: { username: currentUsername } }}>My polls</Link>;
             username = <a href='#'> Hi, {currentUsername}</a>;
         }

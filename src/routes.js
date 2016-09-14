@@ -20,6 +20,8 @@ export default (
         <Route path='/polls/:username' component={PollListPage}/>
         <Route path='/details' component={PollViewPage}/>
         <Route path='/details/:id' component={PollViewPage}/>
-        <Route path='/newpoll' component={NewPoll}/>
+        <Route path='/poll/new' component={NewPoll}/>
+        <Route path='/poll/edit' component={NewPoll}/>
+        <Route path='/poll/edit/:id' component={NewPoll}/>
     </Route>
 )
