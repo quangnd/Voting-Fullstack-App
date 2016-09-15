@@ -31,12 +31,6 @@ var PollApi = {
 		return _clone(poll);
 	},
 
-	getVotesByPollIdAndOption: function (id, option) {
-		var options = _.find(polls, { id: id });
-		let currentOption = _.find(options, { option: option });
-		return _clone(currentOption);
-	},
-
 	getAllPollsByUsername: function (username) {
         return _.filter(polls, { createdBy: username });
 

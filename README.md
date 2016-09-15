@@ -6,7 +6,9 @@ A fullstack web app with NodeJS and its ecosystem
     + ReactJS
     + Bootstrap
     + Jquery
-2. Backend
+    + Toastr
+    + Chart.js
+2. Backend (coming soon)
     + NodeJS
     + MongoDB with Mongoose
     + Express
@@ -34,4 +36,3 @@ A fullstack web app with NodeJS and its ecosystem
     + Need `<Route path='/details' component={PollViewPage}/>`
 + If id is int type, need parseInt after get from query string.
 + To change Component state on the same page, need look into componentWillReceiveProps() life cycle.
-+ 

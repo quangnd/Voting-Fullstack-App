@@ -9,7 +9,6 @@ class Header extends React.Component {
         this.logout = this.logout.bind(this);
     }
 
-     
     logout() {
         Globals.setUsername('');
         this.props.onAuthenticate(false);
