@@ -11,6 +11,12 @@ export default class RegisterForm extends React.Component {
                             <div className='panel-heading'>Create new account</div>
                             <div className='panel-body'>
                                 <form className="form-horizontal">
+                         
+                                  <TextInput type="text"  name="fullname" placeholder="Fullname" label="Fullname"
+                                        value={this.props.user.fullname}
+                                        onChange={this.props.onChange}
+                                        error={this.props.errors.fullname}/>
+
                                     <TextInput type="text"  name="username" placeholder="Username" label="Username"
                                         value={this.props.user.username}
                                         onChange={this.props.onChange}

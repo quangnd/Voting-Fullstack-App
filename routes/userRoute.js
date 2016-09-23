@@ -5,10 +5,11 @@ const config = require('../config');
 
 const usersData = config.initUserData;
 const url = config.database;
-const router = () => {
+const router = function () {
 
     userRouter.route('/')
         .get((req, res) => {
+            console.log('in get');
             mongodb.connect(url, (err, db) => {
                 let collection = db.collection('users');
                 collection.find({}).toArray((err, results) => {
@@ -17,8 +18,22 @@ const router = () => {
             })
         })
 
+    userRouter.route('/addUsers')
+        .get((req, res) => {
+            console.log('add user');
+            mongodb.connect(url, (err, db) => {
+                let collection = db.collection('users');
+                collection.insertMany(usersData, (err, results) => {
+                    res.send(results);
+
+                })
+            })
+
+        })
+
     userRouter.route('/:userid')
         .get((req, res) => {
+            console.log('get userid');
             let userId = parseInt(req.params.userid);
             mongodb.connect(url, (err, db) => {
                 let collection = db.collection('users');
@@ -27,20 +42,6 @@ const router = () => {
                 });
             })
         })
-
-    userRouter.route('/addUsers')
-        .get((req, res) => {
-            mongodb.connect(url, (err, db) => {
-                let collection = db.collection('users');
-                collection.insertMany(usersData, (err, results) => {
-                    res.send(results);
-                    db.close();
-                })
-            })
-
-        })
-
-
 
     return userRouter;
 }

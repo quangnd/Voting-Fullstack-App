@@ -2,13 +2,14 @@ import React from 'react';
 import UserApi from '../api/userApi';
 import RegisterForm from './RegisterForm';
 import toastr from 'toastr';
+import AuthApi from '../api/authApi';
 
 class Register extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            user: { id: '', username: '', password: '' },
+            user: { fullname: '', username: '', password: '' },
             errors: []
         }
 
@@ -42,6 +43,11 @@ class Register extends React.Component {
 		var newErrorState =  this.state.errors; //clear any previous errors.
 
         newErrorState = {};
+        	if (this.state.user.fullname.length < 3) {
+			newErrorState.fullname = 'Fullname must be at least 3 characters.';
+			formIsValid = false;
+		}
+
 		if (this.state.user.username.length < 3) {
 			newErrorState.username = 'Username must be at least 3 characters.';
 			formIsValid = false;
@@ -63,7 +69,8 @@ class Register extends React.Component {
             return;
         }
 
-        UserApi.saveUser(this.state.user);
+        AuthApi.signup(this.state.user);
+
         toastr.success('User Saved!');
         //redirect using react-router context
         const path = '/users';

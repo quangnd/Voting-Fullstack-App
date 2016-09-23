@@ -8,24 +8,30 @@ let router = () => {
         .get((req, res) => {
             res.send('You\'re signing up!');
         })
-        .post((req,res) => {
-            //console.log('in post');
-            //console.log(req.body.password);
-            //sres.send(req.body);
+        .post((req, res) => {
+            console.log('in post');
             mongodb.connect(url, (err, db) => {
                 let collection = db.collection('users');
 
                 //get maxId
-                
-                //save user
-                var user = {
-                    username: req.body.username,
-                    password: req.body.password,
-                    id: 6
-                }
-                collection.insert(user, (err, results) => {
-                    res.send(results);
-                });
+                let newId;
+                collection.find().sort({ userid: -1 }).limit(1).toArray((err, results) => {
+                    newId = results[0].userid + 1;
+
+                    //save user
+                    var user = {
+                        userid: newId,
+                        username: req.body.username,
+                        password: req.body.password,
+                        fullname: req.body.fullname
+                    }
+                    collection.insert(user, (err, results) => {
+                        res.send(results);
+                        db.close();
+                    });
+                })
+
+
             })
         })
 
