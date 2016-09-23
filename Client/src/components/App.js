@@ -23,14 +23,29 @@ class App extends Component {
     }) 
   }
 
+  getAllBooks(){
+    fetch('http://localhost:8000/api/books', {
+      method: 'get'
+    }).then(function(response) {
+      return response;
+    }).catch(function(err) {
+      // Error :(
+    });
+    
+  }
+
   //React.cloneElement only work with one child. See this link to find out more: //http://stackoverflow.com/questions/32370994/how-to-pass-props-to-this-props-children
 
   render() {
+      let responseBody = this.getAllBooks();
        return (
              <div>
                 <Header onAuthenticate={this.onAuthenticate} loggedIn={this.state.authenticated}/>
                 {React.cloneElement(this.props.children, { onAuthenticate: this.onAuthenticate, loggedIn: this.state.authenticated })}           
                 <Footer/>
+                <h3>
+                  {responseBody}
+                </h3>
             </div>
         );
   }

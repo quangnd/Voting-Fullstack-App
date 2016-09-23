@@ -36,3 +36,21 @@ A fullstack web app with NodeJS and its ecosystem
     + Need `<Route path='/details' component={PollViewPage}/>`
 + If id is int type, need parseInt after get from query string.
 + To change Component state on the same page, need look into componentWillReceiveProps() life cycle.
++ To CRA work with API backend, you need
+1. Install foreman (process management module)
+2. Create Procfile with content:
+`web: cd client && npm start
+api: npm run server
+`
+(client directory is where CRA application located!)
+3. Change package.json (at api backend server)
+`
+"scripts": {
+    "start": "nf start -p 3000",
+    "server": "API_PORT=3001 ./node_modules/.bin/babel-node server.js"
+`
+4. Proxy CRA app (edit package.json of CRA app)
+"proxy": "http://localhost:3001/" (suppose API backend port is 3001 )
+
+Reference more: https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#integrating-with-a-node-backend
+
