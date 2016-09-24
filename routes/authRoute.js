@@ -35,6 +35,26 @@ let router = () => {
             })
         })
 
+    authRouter.route('/signin')
+        .post((req,res) => {
+            const username = req.body.username;
+            const password = req.body.password;
+
+            mongodb.connect(url, (err, db) => {
+                let collection = db.collection('users');
+      
+                collection.findOne({username: username, password:password}, (err, results) => {
+                   if (err) {
+                       console.log('Error mongoDB: ' + err);
+                   } else if (results) {
+                        res.send(results);
+                   } else {
+                       res.send({ username: ''});
+                   }
+                });
+            })
+        })
+
     return authRouter;
 }
 

@@ -1,3 +1,4 @@
+import $ from 'jquery'
 
 function signup(user) {
     $.ajax({
@@ -14,6 +15,21 @@ function signup(user) {
     });
 }
 
+function signIn(user, cb) {
+   
+   $.ajax({
+      url: 'auth/signin',
+      dataType: 'json',
+      type: 'POST',
+      data: user,
+      success: function(data) {
+        cb(data);
+      },
+      error: function(xhr, status, err) {
+        console.error(status, err.toString());
+      }
+    });
+}
 
-const AuthApi = { signup };
+const AuthApi = { signup, signIn };
 export default AuthApi;

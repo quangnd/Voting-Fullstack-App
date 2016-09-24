@@ -26,7 +26,7 @@ var UserApi = {
 	validateUser: function(user) {
 		
 		var existingUserIndex = _.indexOf(users, _.find(users, {username: user.username, password: user.password}));
-		console.log(existingUserIndex);
+		//console.log(existingUserIndex);
 		if (existingUserIndex !== -1) {
 			return true;
 		}

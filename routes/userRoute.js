@@ -9,7 +9,7 @@ const router = function () {
 
     userRouter.route('/')
         .get((req, res) => {
-            console.log('in get');
+           // console.log('in get');
             mongodb.connect(url, (err, db) => {
                 let collection = db.collection('users');
                 collection.find({}).toArray((err, results) => {
@@ -20,7 +20,7 @@ const router = function () {
 
     userRouter.route('/addUsers')
         .get((req, res) => {
-            console.log('add user');
+            //console.log('add user');
             mongodb.connect(url, (err, db) => {
                 let collection = db.collection('users');
                 collection.insertMany(usersData, (err, results) => {

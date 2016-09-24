@@ -3,21 +3,22 @@ import SignInForm from './SignInForm';
 import UserApi from '../api/userApi';
 import Globals from '../common/globals';
 import toastr from 'toastr';
+import AuthApi from '../api/authApi';
 
 class SignIn extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            user: {id:'', username:'', password:''},
+            user: { username: '', password: '' },
             errors: [],
         }
         this.setUserState = this.setUserState.bind(this);
         this.login = this.login.bind(this);
-        
+
         toastr.options = {
-                'closeButton': true,
-                'positionClass': 'toast-bottom-right',
+            'closeButton': true,
+            'positionClass': 'toast-bottom-right',
         };
     }
 
@@ -31,25 +32,25 @@ class SignIn extends React.Component {
         });
     }
 
-     userFormIsValid() {
-		var formIsValid = true;
-		var newErrorState =  this.state.errors;
+    userFormIsValid() {
+        var formIsValid = true;
+        var newErrorState = this.state.errors;
         newErrorState = {}; //clear any previous errors.
 
 
-		if (this.state.user.username.length < 3) {
-			newErrorState.username = 'Username must be at least 3 characters.';
-			formIsValid = false;
-		}
+        if (this.state.user.username.length < 3) {
+            newErrorState.username = 'Username must be at least 3 characters.';
+            formIsValid = false;
+        }
 
-		if (this.state.user.password.length < 3) {
-			newErrorState.password = 'Password must be at least 3 characters.';
-			formIsValid = false;
-		}
+        if (this.state.user.password.length < 3) {
+            newErrorState.password = 'Password must be at least 3 characters.';
+            formIsValid = false;
+        }
 
-		this.setState({errors: newErrorState});
-		return formIsValid;
-	}
+        this.setState({ errors: newErrorState });
+        return formIsValid;
+    }
 
     login(event) {
         event.preventDefault();
@@ -59,39 +60,42 @@ class SignIn extends React.Component {
             return;
         }
 
-        var userExisting = UserApi.validateUser(this.state.user);
-        if (userExisting) {
-            authenticated = true;
-            Globals.setUsername(this.state.user.username);
+        //var userExisting = UserApi.validateUser(this.state.user);
+        var userExisting = AuthApi.signIn(this.state.user, (data) => {
+            console.log("data:" + JSON.stringify(data));
 
-            toastr.success('Login successfully!!!');
-            
-            const path = '/polls';
-            this.context.router.push(path)
-        }
-        else {
-            toastr.error('Login failed!!!');
-        }
+            if (data.username !== '') {
+                authenticated = true;
+                Globals.setUsername(this.state.user.username);
 
-        //callback to parent component
-        this.props.onAuthenticate(authenticated);
+                toastr.success('Login successfully!!!');
 
+                const path = '/polls';
+                this.context.router.push(path)
+            }
+            else {
+                toastr.error('Login failed!!!');
+            }
+
+            //callback to parent component
+            this.props.onAuthenticate(authenticated);
+        });
     }
 
     render() {
         return (
-            <SignInForm 
+            <SignInForm
                 user={this.state.user}
                 onChange={this.setUserState}
-                onLogin={this.login} 
+                onLogin={this.login}
                 errors={this.state.errors}
-            />
+                />
         );
     }
 }
 
- SignIn.contextTypes = {
+SignIn.contextTypes = {
     router: React.PropTypes.object
-  };
+};
 
 export default SignIn;
